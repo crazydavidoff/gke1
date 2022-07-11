@@ -1,28 +1,34 @@
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: default-namespace-network-policies-autoneg-system
-  namespace: flux   # we put HelmRelease resources into flux namespace to make use of secretRef with Git credentials
+  namespace: flux-system
 spec:
+  # The interval at which to reconcile the Helm release
+  interval: 10m
   releaseName: default-namespace-network-policies
-  targetNamespace: autoneg-system   # the namespace where Helm chart gets deployed
+  targetNamespace: autoneg-system
   chart:
-    git: "https://bitbucket.org/example/helm"
-    path: "security/default-namespace-network-policies"
-    version: "0.1.0"
-    secretRef:
-      name: flux-git-auth
-  valuesFrom:
-  - configMapKeyRef:
-      name: default-cluster-values
-  values:
-    allow_namespace_traffic: false
-    allow_ingress_cluster_traffic: false
-    allow_egress_cluster_traffic: false
-    allow_ingress_private_traffic: false
-    allow_egress_private_traffic: false
-    allow_monitoring: false
-    allow_apiserver: true
-    allow_internet: true
-    allow_ingress_traffic: false
-    allow_egress_traffic: false
+    spec:
+      # The path of the chart relative to the repository root
+      chart: ./security/default-namespace-network-policies
+      version: '0.1.0'
+      # The reference to the GitRepository
+      sourceRef:
+        kind: HelmRepository
+        name: helm-repo
+        namespace: flux-system
+      valuesFrom:
+      - kind: ConfigMap
+        name: default-cluster-values
+      values:
+        allow_namespace_traffic: false
+        allow_ingress_cluster_traffic: false
+        allow_egress_cluster_traffic: false
+        allow_ingress_private_traffic: false
+        allow_egress_private_traffic: false
+        allow_monitoring: false
+        allow_apiserver: true
+        allow_internet: true
+        allow_ingress_traffic: false
+        allow_egress_traffic: false
