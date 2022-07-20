@@ -31,23 +31,23 @@ spec:
         kind: HelmRepository
         name: kube-oidc-proxy-repo
         namespace: flux-system
-      valuesFrom:
-      - kind: ConfigMap
-        name: default-cluster-values
-      values:
-        # Exposing through ingress with precreated TLS certs.
-        tls:
-          secretName: star-tech-example-net
-        service:
-          type: LoadBalancer
-          annotations:
-            cloud.google.com/load-balancer-type: Internal
-            networking.gke.io/internal-load-balancer-allow-global-access: "true"
-        # oidc config
-        oidc:
-          issuerUrl: 'https://dex.tech.example.net'
-          usernameClaim: email
-          groupsClaim: groups
+  valuesFrom:
+  - kind: ConfigMap
+    name: default-cluster-values
+  values:
+    # Exposing through ingress with precreated TLS certs.
+    tls:
+      secretName: star-tech-example-net
+    service:
+      type: LoadBalancer
+      annotations:
+        cloud.google.com/load-balancer-type: Internal
+        networking.gke.io/internal-load-balancer-allow-global-access: "true"
+    # oidc config
+    oidc:
+      issuerUrl: 'https://dex.tech.example.net'
+      usernameClaim: email
+      groupsClaim: groups
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
