@@ -18,17 +18,17 @@ spec:
         kind: HelmRepository
         name: helm-repo
         namespace: flux-system
-      valuesFrom:
-      - kind: ConfigMap
-        name: default-cluster-values
-      values:
-        allow_namespace_traffic: false
-        allow_ingress_cluster_traffic: false
-        allow_egress_cluster_traffic: false
-        allow_ingress_private_traffic: false
-        allow_egress_private_traffic: false
-        allow_monitoring: false
-        allow_apiserver: true
-        allow_internet: true
-        allow_ingress_traffic: false
-        allow_egress_traffic: false
+  valuesFrom:
+  - kind: ConfigMap
+    name: default-cluster-values
+  values:
+    allow_namespace_traffic: false
+    allow_ingress_cluster_traffic: false
+    allow_egress_cluster_traffic: false
+    allow_ingress_private_traffic: false
+    allow_egress_private_traffic: false
+    allow_monitoring: false
+    allow_apiserver: true
+    allow_internet: true
+    allow_ingress_traffic: false
+    allow_egress_traffic: false
