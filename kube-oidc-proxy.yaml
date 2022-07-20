@@ -9,8 +9,7 @@ metadata:
 spec:
   url: https://github.com/jetstack/kube-oidc-proxy
   interval: 10m
-  ref:
-    branch: 'v0.3.0'
+
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
